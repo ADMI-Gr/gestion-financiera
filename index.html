@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión Financiera</title>
+    <!-- Todo local: la app funciona sin internet -->
+    <link rel="stylesheet" href="vendor/inter.css">
+    <link rel="stylesheet" href="vendor/fontawesome.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <script src="vendor/chart.umd.min.js"></script>
+</head>
+<body>
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <i class="fas fa-wallet"></i>
+                <span>FinanzasApp</span>
+            </div>
+            <button class="sidebar-toggle" id="sidebarToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="#" class="nav-link active" data-view="dashboard">
+                <i class="fas fa-th-large"></i><span>Dashboard</span>
+            </a>
+            <a href="#" class="nav-link" data-view="accounts">
+                <i class="fas fa-coins"></i><span>Cuentas</span>
+            </a>
+            <a href="#" class="nav-link" data-view="cards">
+                <i class="fas fa-credit-card"></i><span>Tarjetas</span>
+            </a>
+            <a href="#" class="nav-link" data-view="transactions">
+                <i class="fas fa-exchange-alt"></i><span>Movimientos</span>
+            </a>
+            <a href="#" class="nav-link" data-view="commitments">
+                <i class="fas fa-calendar-check"></i><span>Compromisos</span>
+            </a>
+            <a href="#" class="nav-link" data-view="budgets">
+                <i class="fas fa-bullseye"></i><span>Presupuestos</span>
+            </a>
+            <a href="#" class="nav-link" data-view="reports">
+                <i class="fas fa-chart-line"></i><span>Reportes</span>
+            </a>
+        </nav>
+        <div class="sidebar-footer">
+            <button class="btn-sidebar" id="exportBtn">
+                <i class="fas fa-download"></i><span>Exportar</span>
+            </button>
+            <button class="btn-sidebar" id="importBtn">
+                <i class="fas fa-upload"></i><span>Importar</span>
+            </button>
+            <input type="file" id="importFile" accept=".json" hidden>
+        </div>
+    </aside>
+
+    <main class="main-content" id="mainContent">
+        <header class="topbar">
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <h2 class="page-title" id="pageTitle">Dashboard</h2>
+            <div class="topbar-right">
+                <span class="current-date" id="currentDate"></span>
+            </div>
+        </header>
+        <div class="content-area" id="contentArea">
+            <section id="view-dashboard" class="view active"></section>
+            <section id="view-accounts" class="view"></section>
+            <section id="view-cards" class="view"></section>
+            <section id="view-transactions" class="view"></section>
+            <section id="view-commitments" class="view"></section>
+            <section id="view-budgets" class="view"></section>
+            <section id="view-reports" class="view"></section>
+        </div>
+    </main>
+
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal" id="modal">
+            <div class="modal-header">
+                <h3 id="modalTitle"></h3>
+                <button class="modal-close" id="modalClose">&times;</button>
+            </div>
+            <div class="modal-body" id="modalBody"></div>
+        </div>
+    </div>
+
+    <div class="confirm-overlay" id="confirmOverlay">
+        <div class="confirm-dialog">
+            <div class="confirm-icon"><i class="fas fa-exclamation-triangle"></i></div>
+            <p id="confirmMessage"></p>
+            <div class="confirm-actions">
+                <button class="btn btn-secondary" id="confirmCancel">Cancelar</button>
+                <button class="btn btn-danger" id="confirmOk">Eliminar</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast" class="toast"></div>
+
+    <!-- El orden importa: dominio -> datos -> derivados -> ui -> vistas -> arranque -->
+    <script src="js/domain.js"></script>
+    <script src="js/db.js"></script>
+    <script src="js/derive.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/views/dashboard.js"></script>
+    <script src="js/views/accounts.js"></script>
+    <script src="js/views/cards.js"></script>
+    <script src="js/views/transactions.js"></script>
+    <script src="js/views/commitments.js"></script>
+    <script src="js/views/budgets.js"></script>
+    <script src="js/views/reports.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
