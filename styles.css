@@ -1664,3 +1664,99 @@ tbody tr:last-child td { border-bottom: none; }
     .chip { flex: 1 1 auto; justify-content: center; }
     .uncovered-item { flex-direction: column; align-items: flex-start; gap: 8px; }
 }
+
+/* ==================== SESIÓN (ADMI) ==================== */
+body.auth-pending .sidebar,
+body.auth-pending .main-content { display: none; }
+
+.auth-screen {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 24px 16px;
+    background: var(--sidebar-bg);
+    overflow-y: auto;
+}
+.auth-screen.active { display: flex; }
+
+.auth-card {
+    width: 100%;
+    max-width: 380px;
+    background: var(--card);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg);
+    padding: 32px 28px 24px;
+}
+
+.auth-brand {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 24px;
+}
+.auth-brand-mark {
+    font-size: 1.9rem;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+    color: var(--sidebar-bg);
+    padding-left: 0.18em;
+}
+.auth-brand-app {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--primary);
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.auth-submit { width: 100%; justify-content: center; margin-top: 4px; }
+
+.auth-link {
+    display: block;
+    width: 100%;
+    margin-top: 14px;
+    background: none;
+    border: none;
+    color: var(--primary);
+    font: inherit;
+    font-size: 0.85rem;
+    cursor: pointer;
+}
+.auth-link:hover { text-decoration: underline; }
+
+.auth-msg { min-height: 1.2em; margin-bottom: 10px; font-size: 0.85rem; line-height: 1.4; }
+.auth-msg.error { color: var(--danger); }
+.auth-msg.ok { color: var(--success); }
+
+.auth-noaccess {
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 18px;
+}
+.auth-noaccess i { color: var(--warning); margin-right: 4px; }
+
+.auth-footer { color: var(--text-light); font-size: 0.8rem; }
+
+.sidebar-user {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 4px 2px;
+    color: var(--text-light);
+    font-size: 0.8rem;
+    min-width: 0;
+}
+.sidebar-user span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* Estado de guardado en la nube */
+.sync-status { font-size: 0.8rem; color: var(--text-light); white-space: nowrap; }
+.sync-status.saving { color: var(--text-secondary); }
+.sync-status.error { color: var(--danger); font-weight: 600; }
+@media (max-width: 640px) { .current-date { display: none; } }

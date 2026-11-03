@@ -3,14 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestión Financiera</title>
-    <!-- Todo local: la app funciona sin internet -->
+    <title>Gestión Financiera · ADMI</title>
+    <!-- Estilos y gráficas locales; los datos viven en Supabase (proyecto ADMI Apps) -->
     <link rel="stylesheet" href="vendor/inter.css">
     <link rel="stylesheet" href="vendor/fontawesome.min.css">
     <link rel="stylesheet" href="styles.css">
     <script src="vendor/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
 </head>
-<body>
+<body class="auth-pending">
+    <div class="auth-screen" id="authScreen">
+        <div class="auth-card">
+            <div class="auth-brand">
+                <span class="auth-brand-mark">ADMI</span>
+                <span class="auth-brand-app"><i class="fas fa-wallet"></i> Gestión Financiera</span>
+            </div>
+
+            <form id="authForm">
+                <div class="form-group" id="authNameGroup" hidden>
+                    <label for="authName">Nombre</label>
+                    <input type="text" class="form-control" id="authName" autocomplete="name" placeholder="Cómo quieres que te llamemos">
+                </div>
+                <div class="form-group">
+                    <label for="authEmail">Correo</label>
+                    <input type="email" class="form-control" id="authEmail" autocomplete="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="authPassword">Contraseña</label>
+                    <input type="password" class="form-control" id="authPassword" autocomplete="current-password" minlength="6" required>
+                </div>
+                <p class="auth-msg" id="authMsg" role="status"></p>
+                <button type="submit" class="btn btn-primary auth-submit" id="authSubmit">Entrar</button>
+                <button type="button" class="auth-link" id="authToggle">¿No tienes cuenta? Regístrate</button>
+            </form>
+
+            <div id="authNoAccess" hidden>
+                <p class="auth-noaccess">
+                    <i class="fas fa-lock"></i>
+                    Tu cuenta ADMI todavía no tiene acceso a <strong>Gestión Financiera</strong>.
+                    Pide al administrador que te lo active y vuelve a entrar.
+                </p>
+                <button type="button" class="btn btn-secondary auth-submit" id="authSignOut">Cerrar sesión</button>
+            </div>
+        </div>
+        <p class="auth-footer">Una cuenta para todas las apps de ADMI</p>
+    </div>
+
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-header">
             <div class="logo">
@@ -52,6 +90,13 @@
                 <i class="fas fa-upload"></i><span>Importar</span>
             </button>
             <input type="file" id="importFile" accept=".json" hidden>
+            <div class="sidebar-user">
+                <i class="fas fa-user-circle"></i>
+                <span id="userEmail"></span>
+            </div>
+            <button class="btn-sidebar" id="signOutBtn">
+                <i class="fas fa-sign-out-alt"></i><span>Cerrar sesión</span>
+            </button>
         </div>
     </aside>
 
@@ -62,6 +107,7 @@
             </button>
             <h2 class="page-title" id="pageTitle">Dashboard</h2>
             <div class="topbar-right">
+                <span class="sync-status" id="syncStatus"></span>
                 <span class="current-date" id="currentDate"></span>
             </div>
         </header>
@@ -99,7 +145,9 @@
 
     <div id="toast" class="toast"></div>
 
-    <!-- El orden importa: dominio -> datos -> derivados -> ui -> vistas -> arranque -->
+    <!-- El orden importa: config -> sesión -> dominio -> datos -> derivados -> ui -> vistas -> arranque -->
+    <script src="js/config.js"></script>
+    <script src="js/auth.js"></script>
     <script src="js/domain.js"></script>
     <script src="js/db.js"></script>
     <script src="js/derive.js"></script>
